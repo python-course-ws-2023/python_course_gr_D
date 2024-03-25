@@ -1,9 +1,9 @@
 API Documentation
 =================
 
-The modules part of My Python Project:
+The modules part of Our Python Project:
 
-.. automodule:: my_module
+.. automodule:: our_module
    :members:
    :undoc-members:
    :show-inheritance:
