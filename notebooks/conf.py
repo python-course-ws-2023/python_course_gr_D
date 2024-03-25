@@ -2,8 +2,8 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../../functions'))
 
-project = 'My Python Project'
-author = 'Your Name'
+project = 'Online Retail Sales Analysis¶'
+author = 'Emona,Mariia,Alican'
 
 extensions = [
     'sphinx_rtd_theme',
