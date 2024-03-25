@@ -1,4 +1,4 @@
-Welcome to My Python Project's Documentation!
+Welcome to Our Python Project's Documentation!
 ==============================================
 
 Contents:
