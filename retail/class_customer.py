@@ -10,7 +10,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load the cleaned dataset
-dataset = pd.read_csv('C:/Users/Galin Belchov/Downloads/python project/Online_Retail.csv')
+#dataset = pd.read_csv('C:/Users/Galin Belchov/Downloads/python project/Online_Retail.csv')
 
 class Customer:
     def __init__(self, customer_id, country, transactions):
