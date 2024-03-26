@@ -2,6 +2,9 @@ import numpy as np
 import polars as pl
 import re
 import os
+import geopandas as gpd
+import pandas as pd 
+import matplotlib.pyplot as plt
 
 #Attribute sw: likely Descriptions that are used, but are not meaningfull
 #this attribute can be set in to the other value  
@@ -80,6 +83,9 @@ class retail:
         #preprocess data set
         data = self.data_preprocessed(data)
 
+        self.plot_map(data)
+        self.quantity_boxplot(data)
+        self.scatter_price_quant(data)
         self.get_summary(data)
   
   
@@ -304,4 +310,97 @@ class retail:
         print(f"Number of Unique Customer IDs: {unique_customer_ids}")
         print(f"Country with Most Stock Codes: {countries_with_most_stock_codes}")
 
-    
+
+    def plot_map(self, data): 
+        '''Plot a map with countries colored based on the number of invoices.
+
+        Parameters
+        ----------
+        data : polars.DataFrame
+            Input polars.DataFrame containing the dataset with country-wise invoice information.
+
+        Returns
+        ---------
+        None
+            Displays a map with countries colored based on the number of invoices
+
+        '''
+        # Load country boundaries
+        world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+
+        countries_with = data.group_by('Country', 'InvoiceNo').agg(pl.count('StockCode')).group_by('Country').agg(pl.count('InvoiceNo'))
+        da = pd.DataFrame(countries_with, columns = countries_with.columns)
+        da.loc[da['Country'] == 'RSA','Country'] = 'South Africa'
+        da.loc[da['Country'] == 'USA','Country'] = 'United States of America'
+        da.loc[da['Country'] == 'Czech Republic','Country'] = 'Czechia'
+        da.loc[da['Country'] == 'EIRE','Country'] = 'Ireland'
+
+        merged = world.merge(da, how='left', left_on='name', right_on = 'Country')
+        merged.loc[merged['Country'].isna(), 'InvoiceNo'] = 0
+
+        fig, ax = plt.subplots(1, 1)
+        merged.plot(column='InvoiceNo', cmap='OrRd', linewidth=0.8, ax=ax, edgecolor='0.8')
+        ax.set_title('Number of invoices by country')
+
+        # Create legend
+        cax = fig.add_axes([0.9, 0.1, 0.03, 0.8]) 
+        sm = plt.cm.ScalarMappable(cmap='OrRd', norm=plt.Normalize(vmin=min(merged['InvoiceNo']), vmax=max(merged['InvoiceNo'])))
+        cbar = fig.colorbar(sm, cax=cax)
+        cbar.set_label('Number of invoices')
+
+        plt.show()
+
+    def quantity_boxplot(self, data):
+        """Generates a box plot showing the distribution of quantity of items bought for each product.
+
+        Parameters
+        ----------
+        data : DataFrame
+            Input DataFrame containing the quantity of items bought for each product.
+
+        Returns
+        -------
+        None
+            Displays the box plot with the quantity of items.
+        """
+
+        plt.figure(figsize =(10, 7))
+        plt.boxplot(data['Quantity'])
+        plt.xlabel(" ")
+        plt.ylabel("Quantity of items")
+        plt.xticks([1], ['Quantity'])
+        plt.title('Boxplot with the quantity of items bought for each product')
+        plt.show()
+
+
+        plt.figure(figsize =(10, 7))
+        plt.boxplot(data['Quantity'])
+        plt.ylim([0, 30]) 
+        plt.xlabel(" ")
+        plt.ylabel("Quantity of items")
+        plt.xticks([1], ['Quantity'])
+        plt.title('Boxplot with the quantity of items bought for each product (zoomed)')
+        plt.show()
+
+    def scatter_price_quant(self, data):
+        '''Create a scatter plot to visualize the relationship between unit price and quantity purchased.
+
+        Parameters
+        ----------
+        data : polars.DataFrame
+            Input DataFrame containing the data.
+
+        Returns
+        -------
+        None
+            Displays the scatter plot.
+        '''
+        plt.scatter(data['UnitPrice'], data['Quantity'], color='orange')
+        plt.ylabel("Quantity of items")
+        plt.xlabel("Price")
+        plt.title('Relationship Between Unit Price and Quantity Purchased')
+        plt.xlim([-1, 30]) 
+        plt.ylim([-3, 2000]) 
+        plt.show()
+
+
