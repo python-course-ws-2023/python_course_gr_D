@@ -141,7 +141,9 @@ class retail:
         str
             String with extra spaces removed.
         """
-        dat_arr = " ".join(arr.split(" "))
+        dat_arr = arr.split(" ")
+        dat_arr = [i for i in dat_arr if i != ""]
+        dat_arr = " ".join(dat_arr)
         return dat_arr
     
     def find_match(self, s):
