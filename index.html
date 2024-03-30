@@ -2,26 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Retail Data Analysis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Retail Data Analysis Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1, h2 { color: #333; }
-        nav ul { list-style-type: none; padding: 0; }
-        nav ul li { margin: 10px 0; }
-        a { color: #007bff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: #f7f9fc; 
+            color: #333;
+        }
+        header {
+            background: #007bff; 
+            color: #fff; 
+            padding: 20px 0; 
+            text-align: center;
+        }
+        .container { 
+            width: 80%; 
+            margin: auto; 
+            padding: 20px;
+        }
+        .nav { 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px 0;
+        }
+        .nav a { 
+            margin: 0 15px; 
+            text-decoration: none; 
+            color: #007bff; 
+            border-bottom: 2px solid transparent;
+        }
+        .nav a:hover, .nav a.active { 
+            border-bottom: 2px solid #007bff;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        h1, h2 { 
+            font-weight: 500;
+        }
+        p {
+            line-height: 1.6;
+        }
+        footer {
+            background: #333; 
+            color: #fff; 
+            text-align: center; 
+            padding: 10px 0; 
+            position: fixed; 
+            left: 0; 
+            bottom: 0; 
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <h1>Retail Data Analysis</h1>
-    <p>This project is designed to simplify and automate the process of analyzing retail sales data. The Python package offers tools for preprocessing raw retail data, extracting insightful analytics, visualizing sales patterns, and understanding customer behavior through a set of intuitive Python classes and functions.</p>
+    <header>
+        <h1>Python Retail Data Analysis Project</h1>
+    </header>
+    <div class="container">
+        <nav class="nav">
+            <a href="#about" class="active">About</a>
+            <a href="#api-documentation">API Documentation</a>
+            <a href="#usage-example">Usage Example</a>
+        </nav>
 
-    <nav>
-        <h2>Website Navigation</h2>
-        <ul>
-            <li><a href="./docs/_build/html/index.html">API Documentation</a></li>
-            <li><a href="https://nbviewer.jupyter.org/github/EmonaBakalova/Python_Project/blob/master/PathTo/ExampleNotebook.ipynb">Usage Example</a></li>
-        </ul>
-    </nav>
+        <section id="about">
+            <h2>About</h2>
+            <p>
+                The Python Retail Data Analysis Project is designed to provide retail businesses with analytical tools
+                to understand customer behaviors and sales patterns. By leveraging Python, this project aims to unveil
+                hidden insights within retail data, aiding strategic decision-making and fostering business growth.
+            </p>
+        </section>
+
+        <section id="api-documentation">
+            <h2>API Documentation</h2>
+            <p>
+                The project's API documentation is generated using Sphinx. It includes detailed descriptions of the
+                modules, classes, and functions used within the project.
+            </p>
+            <p><a href="docs/index.html">View API Documentation</a></p>
+        </section>
+
+        <section id="usage-example">
+            <h2>Usage Example</h2>
+            <p>
+                Explore how to use the Python Retail Data Analysis Project with our Jupyter Notebook examples. These
+                notebooks provide practical examples on analyzing retail data using the project's tools.
+            </p>
+            <p><a href="examples/showcase.ipynb">View Usage Example Notebook</a></p>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2023 Python Retail Data Analysis Project</p>
+    </footer>
 </body>
 </html>
