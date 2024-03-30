@@ -1,6 +1,10 @@
 import pytest
 import pandas as pd
-from class_customer import Customer
+import os
+import sys
+#print(sys.path)
+sys.path.append('C:/Users/Galin Belchov/Documents/TU DORTMUND/Python/Python_Project')  
+from retail.class_customer import Customer
 
 
 # Sample data for testing
