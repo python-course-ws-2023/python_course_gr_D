@@ -1,6 +1,12 @@
-#import pytest
-#import retail.class_retail as cr
+import pytest
+import pandas as pd
+import os
+import sys
+#print(sys.path)
+sys.path.append(os.path.abspath('Python_Project/retail'))
+import retail.class_retail as cr
 
-#def test_remove_spaces():
-#    pass
+sample_string = " Postcard  with flowers"
 
+def test_remove_spaces(sample_string):
+    assert remove_spaces(sample_string) == "Postcard with flowers"
