@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import sys
 #print(sys.path)
-#sys.path.append('C:/Users/Galin Belchov/Documents/TU DORTMUND/Python/Python_Project')  
+sys.path.append(os.path.abspath('Python_Project/retail'))
 from retail.class_customer import Customer
 
 
