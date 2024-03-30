@@ -12,6 +12,9 @@ This project was made by TU Dortmund University students Emona Bakalova, Mariia 
 - The `Customer` class delves into individual customer behaviors, revealing insights into purchase patterns, frequencies, and preferences.
 - The `Retail` class offers a comprehensive overview of sales data, encompassing product performance, seasonal trends, and overall sales effectiveness.
 
+  Source for Data;
+  "https://www.kaggle.com/datasets/thedevastator/online-retail-transaction-records/code"
+
 Python scripts and Jupyter notebooks are utilized to explore various aspects of retail data, from detailed analyses of customer behaviors to overarching examinations of sales trends.
 
 ## Getting Started
