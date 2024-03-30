@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --primary-color: #bb86fc;
-            --link-hover: #03dac6;
+            --bg-color: #fff;
+            --text-color: #000;
+            --link-color: #000;
+            --link-hover: #555;
         }
         body { 
             font-family: 'Roboto', sans-serif; 
@@ -19,11 +19,9 @@
             background: var(--bg-color); 
             color: var(--text-color);
         }
-        header {
-            background: var(--primary-color); 
-            color: var(--bg-color); 
+        header, footer {
+            text-align: center; 
             padding: 20px 0; 
-            text-align: center;
         }
         .container { 
             max-width: 800px; 
@@ -39,7 +37,7 @@
         .nav a { 
             margin: 0 15px; 
             text-decoration: none; 
-            color: var(--primary-color); 
+            color: var(--link-color); 
             transition: color 0.3s;
         }
         .nav a:hover { 
@@ -49,7 +47,7 @@
             margin-bottom: 20px;
         }
         h1, h2 { 
-            color: var(--primary-color);
+            color: var(--text-color);
         }
         p, a {
             color: var(--text-color);
@@ -58,23 +56,16 @@
         a:hover {
             color: var(--link-hover);
         }
-        footer {
-            background: var(--bg-color); 
-            color: var(--text-color); 
-            text-align: center; 
-            padding: 10px 0; 
-            margin-top: 20px;
-        }
         .logo {
-            max-width: 200px;
-            margin: 20px auto;
-            display: block;
+            max-width: 100px;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="https://hochschulmarketing.tu-dortmund.de/typo3conf/ext/tudo_base/Resources/Public/Images/tu-dortmund-logo-social.png" alt="TU Dortmund Logo" class="logo">
         <h1>Python Retail Data Analysis Project</h1>
     </header>
     <div class="container">
@@ -96,10 +87,9 @@
         <section id="api-documentation">
             <h2>API Documentation</h2>
             <p>
-                The project's API documentation is generated using Sphinx. It includes detailed descriptions of the
-                modules, classes, and functions used within the project.
+                The project's API documentation is generated using Sphinx. Ensure you have navigated to the correct URL where your Sphinx-generated documentation is hosted.
             </p>
-            <p><a href="https://emonabakalova.github.io/Python_Project/docs/build/html/index.html">View API Documentation</a></p>
+            <p><a href="https://emonabakalova.github.io/Python_Project/docs/">View API Documentation</a></p>
         </section>
 
         <section id="usage-example">
@@ -111,6 +101,7 @@
             <p><a href="https://github.com/EmonaBakalova/Python_Project/blob/main/docs/source/example/showcase.ipynb">View Usage Example Notebook on GitHub</a></p>
         </section>
     </div>
+    <img src="https://hochschulmarketing.tu-dortmund.de/typo3conf/ext/tudo_base/Resources/Public/Images/tu-dortmund-logo-social.png" alt="TU Dortmund Logo" class="logo">
     <footer>
         <p>&copy; 2023 Python Retail Data Analysis Project</p>
     </footer>
