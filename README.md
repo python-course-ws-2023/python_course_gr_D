@@ -7,7 +7,7 @@ The Python Retail Data Analysis Project aims to provide retail businesses with t
 
 ## About The Project
 
-Understanding customer preferences and identifying sales trends are crucial components of success in the fast-paced retail industry. This project introduces a robust framework for the analysis of retail data, featuring classes such as `Customer` and `Retail`. These classes facilitate the examination of purchase histories, the evaluation of product performance, and the identification of significant sales trends.
+This project was made by TU Dortmund University students Emona Bakalova, Mariia Hrechyn, Alican Ohkay for the final project of the Introduction to Python course. Understanding customer preferences and identifying sales trends are crucial components of success in the fast-paced retail industry. This project introduces a robust framework for the analysis of retail data, featuring classes such as `Customer` and `Retail`. These classes facilitate the examination of purchase histories, the evaluation of product performance, and the identification of significant sales trends.
 
 - The `Customer` class delves into individual customer behaviors, revealing insights into purchase patterns, frequencies, and preferences.
 - The `Retail` class offers a comprehensive overview of sales data, encompassing product performance, seasonal trends, and overall sales effectiveness.
@@ -21,13 +21,13 @@ To begin utilizing the Python Retail Data Analysis Project, follow these steps t
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/YOUR_GITHUB_USERNAME/Python_Retail_Data_Analysis_Project.git
+   git clone https://github.com/EmonaBakalova/Python_Project.git
    ```
 
 2. **Navigate to the project directory:**
 
    ```bash
-   cd Python_Retail_Data_Analysis_Project
+   cd Python_Project
    ```
 
 3. **Install the required dependencies:**
@@ -48,7 +48,7 @@ Utilize the `Customer` class to analyze customer data, which enables the loading
 from retail.class_customer import Customer
 
 # Load customer data
-customer_data = Customer('path/to/your/customer_data.csv')
+customer_data = Customer('docs/source/example/Online_Retail.csv')
 
 # Display customer summary
 print(customer_data.summary())
@@ -62,7 +62,7 @@ The `Retail` class allows for a more extensive analysis of sales data, including
 from retail.class_retail import Retail
 
 # Load sales data
-sales_data = Retail('path/to/your/sales_data.csv')
+sales_data = Retail('docs/source/example/Online_Retail.csv')
 
 # Analyze sales performance
 print(sales_data.analyze_performance())
