@@ -4,71 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Retail Data Analysis Project</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --primary-color: #bb86fc;
+            --link-hover: #03dac6;
+        }
         body { 
             font-family: 'Roboto', sans-serif; 
             margin: 0; 
             padding: 0; 
-            background: #f7f9fc; 
-            color: #333;
+            background: var(--bg-color); 
+            color: var(--text-color);
         }
         header {
-            background: #007bff; 
-            color: #fff; 
+            background: var(--primary-color); 
+            color: var(--bg-color); 
             padding: 20px 0; 
             text-align: center;
         }
         .container { 
-            width: 80%; 
+            max-width: 800px; 
             margin: auto; 
             padding: 20px;
         }
         .nav { 
             display: flex; 
             justify-content: center; 
-            padding: 20px 0;
+            list-style: none;
+            padding: 20px;
         }
         .nav a { 
             margin: 0 15px; 
             text-decoration: none; 
-            color: #007bff; 
-            border-bottom: 2px solid transparent;
+            color: var(--primary-color); 
+            transition: color 0.3s;
         }
-        .nav a:hover, .nav a.active { 
-            border-bottom: 2px solid #007bff;
+        .nav a:hover { 
+            color: var(--link-hover);
         }
         section {
             margin-bottom: 20px;
         }
         h1, h2 { 
-            font-weight: 500;
+            color: var(--primary-color);
         }
-        p {
-            line-height: 1.6;
+        p, a {
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: var(--link-hover);
         }
         footer {
-            background: #333; 
-            color: #fff; 
+            background: var(--bg-color); 
+            color: var(--text-color); 
             text-align: center; 
             padding: 10px 0; 
-            position: fixed; 
-            left: 0; 
-            bottom: 0; 
-            width: 100%;
+            margin-top: 20px;
+        }
+        .logo {
+            max-width: 200px;
+            margin: 20px auto;
+            display: block;
         }
     </style>
 </head>
 <body>
     <header>
+        <img src="https://hochschulmarketing.tu-dortmund.de/typo3conf/ext/tudo_base/Resources/Public/Images/tu-dortmund-logo-social.png" alt="TU Dortmund Logo" class="logo">
         <h1>Python Retail Data Analysis Project</h1>
     </header>
     <div class="container">
-        <nav class="nav">
-            <a href="#about" class="active">About</a>
-            <a href="#api-documentation">API Documentation</a>
-            <a href="#usage-example">Usage Example</a>
-        </nav>
+        <ul class="nav">
+            <li><a href="#about" class="active">About</a></li>
+            <li><a href="#api-documentation">API Documentation</a></li>
+            <li><a href="#usage-example">Usage Example</a></li>
+        </ul>
 
         <section id="about">
             <h2>About</h2>
@@ -85,7 +99,7 @@
                 The project's API documentation is generated using Sphinx. It includes detailed descriptions of the
                 modules, classes, and functions used within the project.
             </p>
-            <p><a href="https://emonabakalova.github.io/Python_Project/docs/">View API Documentation</a></p>
+            <p><a href="https://emonabakalova.github.io/Python_Project/docs/build/html/index.html">View API Documentation</a></p>
         </section>
 
         <section id="usage-example">
@@ -94,7 +108,7 @@
                 Explore how to use the Python Retail Data Analysis Project with our Jupyter Notebook examples. These
                 notebooks provide practical examples on analyzing retail data using the project's tools.
             </p>
-            <p><a href="https://emonabakalova.github.io/Python_Project/examples/showcase.ipynb">View Usage Example Notebook</a></p>
+            <p><a href="https://github.com/EmonaBakalova/Python_Project/blob/main/docs/source/example/showcase.ipynb">View Usage Example Notebook on GitHub</a></p>
         </section>
     </div>
     <footer>
