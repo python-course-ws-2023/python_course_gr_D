@@ -19,7 +19,7 @@ dependencies = ["matplotlib>=3.8.3",
                 "polars==0.20.16",
                 "seaborn==0.13.2",
                 "geopandas>=0.14.3" ]
-
+dynamic = ['description', 'license', 'authors', 'classifiers']
 
 [project.optional-dependencies]
 dev = ["pytest ~= 7.1.2"]
