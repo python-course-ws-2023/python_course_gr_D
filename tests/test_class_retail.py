@@ -8,5 +8,5 @@ import retail.class_retail as cr
 
 sample_string = " Postcard  with flowers"
 
-def test_remove_spaces(sample_string):
+def test_remove_spaces():
     assert remove_spaces(sample_string) == "Postcard with flowers"
