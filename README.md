@@ -14,7 +14,7 @@ This project was made by TU Dortmund University students Emona Bakalova, Mariia 
 
   Source for Data;
 
-  [Kaggle](https://www.kaggle.com/datasets/thedevastator/online-retail-transaction-records/code)
+  [Click on here](https://www.kaggle.com/datasets/thedevastator/online-retail-transaction-records/code)
 
   
 Python scripts and Jupyter notebooks are utilized to explore various aspects of retail data, from detailed analyses of customer behaviors to overarching examinations of sales trends.
