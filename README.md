@@ -5,6 +5,11 @@
 
 The Python Retail Data Analysis Project aims to provide retail businesses with tools for insightful analysis of customer behaviors and sales patterns. By utilizing advanced data manipulation and analysis techniques, this project seeks to unveil hidden insights within retail data, aiding strategic decision-making and fostering business growth.
 
+
+  Source for Data;
+
+  [Click on here](https://www.kaggle.com/datasets/thedevastator/online-retail-transaction-records/code)
+
 ## About The Project
 
 This project was made by TU Dortmund University students Emona Bakalova, Mariia Hrechyn, Alican Ohkay for the final project of the Introduction to Python course. Understanding customer preferences and identifying sales trends are crucial components of success in the fast-paced retail industry. This project introduces a robust framework for the analysis of retail data, featuring classes such as `Customer` and `Retail`. These classes facilitate the examination of purchase histories, the evaluation of product performance, and the identification of significant sales trends.
@@ -12,9 +17,6 @@ This project was made by TU Dortmund University students Emona Bakalova, Mariia 
 - The `Customer` class delves into individual customer behaviors, revealing insights into purchase patterns, frequencies, and preferences.
 - The `Retail` class offers a comprehensive overview of sales data, encompassing product performance, seasonal trends, and overall sales effectiveness.
 
-  Source for Data;
-
-  [Click on here](https://www.kaggle.com/datasets/thedevastator/online-retail-transaction-records/code)
 
   
 Python scripts and Jupyter notebooks are utilized to explore various aspects of retail data, from detailed analyses of customer behaviors to overarching examinations of sales trends.
