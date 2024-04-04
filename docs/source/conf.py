@@ -27,7 +27,9 @@ extensions = [
     "sphinx.ext.autosummary", # Generates function/method/attribute summary lists
     "sphinx.ext.napoleon",    # Enables Sphinx to parse both NumPy and Google style docstrings
     "myst_nb",                # For compiling Jupyter Notebooks into high quality documentation formats
+    "sphinx_design"           # enable sphinx designs
 ]
+
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -37,5 +39,5 @@ language = 'english'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']

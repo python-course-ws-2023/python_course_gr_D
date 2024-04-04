@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+retail/__init__.py
+retail/class_customer.py
+retail/class_retail.py
+retail.egg-info/PKG-INFO
+retail.egg-info/SOURCES.txt
+retail.egg-info/dependency_links.txt
+retail.egg-info/requires.txt
+retail.egg-info/top_level.txt
+tests/test_class_customer.py

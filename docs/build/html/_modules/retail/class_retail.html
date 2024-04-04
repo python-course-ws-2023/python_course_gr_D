@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="english" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>retail.class_retail &mdash; Retail analysis 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=013c598b"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Retail analysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../retail.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example/showcase.html">Example</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Retail analysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">retail.class_retail</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for retail.class_retail</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">polars</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1">#Attribute sw: likely Descriptions that are used, but are not meaningfull</span>
+<span class="c1">#this attribute can be set in to the other value  </span>
+
+<div class="viewcode-block" id="retail">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail">[docs]</a>
+<span class="k">class</span> <span class="nc">retail</span><span class="p">:</span>
+
+    <span class="c1"># Stop words - likely comments are used in Description column</span>
+    <span class="n">sw</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;??&#39;</span><span class="p">,</span> <span class="s1">&#39;???&#39;</span><span class="p">,</span> <span class="s1">&#39;check&#39;</span><span class="p">,</span> <span class="s1">&#39;found&#39;</span><span class="p">,</span> <span class="s1">&#39;amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;damages&#39;</span><span class="p">,</span> <span class="s1">&#39;amazon&#39;</span><span class="p">,</span> 
+     <span class="s1">&#39;crushed&#39;</span><span class="p">,</span> <span class="s1">&#39;sold as set on dotcom&#39;</span><span class="p">,</span> <span class="s1">&#39;water damage&#39;</span><span class="p">,</span> <span class="s1">&#39;Found&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">,</span><span class="s1">&#39;???lost&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;AMAZON&#39;</span><span class="p">,</span> <span class="s1">&#39;Damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;counted&#39;</span><span class="p">,</span> <span class="s1">&#39;wet pallet&#39;</span><span class="p">,</span> <span class="s1">&#39;????missing&#39;</span><span class="p">,</span><span class="s1">&#39;Water damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;adjustment&#39;</span><span class="p">,</span> 
+     <span class="s1">&#39;dotcom&#39;</span><span class="p">,</span> <span class="s1">&#39;mouldy, thrown away.&#39;</span><span class="p">,</span> <span class="s1">&#39;Show Samples&#39;</span><span class="p">,</span> <span class="s1">&#39;lost&#39;</span><span class="p">,</span> <span class="s1">&#39;incorrectly made-thrown away.&#39;</span><span class="p">,</span> <span class="s1">&#39;re-adjustment&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;damages/dotcom?&#39;</span><span class="p">,</span> <span class="s1">&#39;sold as set/6 by dotcom&#39;</span><span class="p">,</span> <span class="s1">&#39;cracked&#39;</span><span class="p">,</span> <span class="s1">&#39;crushed ctn&#39;</span><span class="p">,</span><span class="s1">&#39;taig adjust no stock&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;POSSIBLE DAMAGES OR LOST?&#39;</span><span class="p">,</span> <span class="s2">&quot;Dotcom sold in 6&#39;s&quot;</span><span class="p">,</span> <span class="s2">&quot;sold in set?&quot;</span><span class="p">,</span> <span class="s1">&#39;reverse 21/5/10 adjustment&#39;</span><span class="p">,</span>
+     <span class="s2">&quot;can&#39;t find&quot;</span><span class="p">,</span> <span class="s2">&quot;?missing&quot;</span><span class="p">,</span> <span class="s1">&#39;?? missing&#39;</span><span class="p">,</span> <span class="s1">&#39;amazon adjust&#39;</span><span class="p">,</span> <span class="s1">&#39;Dotcom set&#39;</span><span class="p">,</span> <span class="s1">&#39;wrongly sold as sets&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;?sold as sets?&#39;</span><span class="p">,</span> <span class="s1">&#39;mouldy, unsaleable.&#39;</span><span class="p">,</span> <span class="s1">&#39;Amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;faulty&#39;</span><span class="p">,</span> <span class="s1">&#39;rcvd be air temp fix for dotcom sit&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;re dotcom quick fix.&#39;</span><span class="p">,</span> <span class="s1">&#39;Dotcom sales&#39;</span><span class="p">,</span> <span class="s1">&#39;missing?&#39;</span><span class="p">,</span><span class="s1">&#39;reverse 21/5/10 adjustment&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;incorrectly put back into stock&#39;</span><span class="p">,</span> <span class="s1">&#39;damages?&#39;</span><span class="p">,</span><span class="s1">&#39;had been put aside&#39;</span><span class="p">,</span> <span class="s1">&#39;wet boxes&#39;</span><span class="p">,</span> <span class="s1">&#39;wet rusty&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;sold as set on dotcom&#39;</span><span class="p">,</span> <span class="s1">&#39;????damages????&#39;</span><span class="p">,</span> <span class="s1">&#39;historic computer difference?....se&#39;</span><span class="p">,</span> 
+     <span class="s1">&#39;smashed&#39;</span><span class="p">,</span> <span class="s1">&#39;had been put aside&#39;</span><span class="p">,</span> <span class="s1">&#39;dotcomstock&#39;</span><span class="p">,</span><span class="s1">&#39;mixed up&#39;</span><span class="p">,</span> <span class="s1">&#39;michel oops&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;lost in space&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;amazon sales&#39;</span><span class="p">,</span><span class="s1">&#39;FOUND&#39;</span><span class="p">,</span> <span class="s1">&#39;thrown away&#39;</span><span class="p">,</span> <span class="s1">&#39;wet pallet&#39;</span><span class="p">,</span> <span class="s1">&#39;???missing&#39;</span><span class="p">,</span> <span class="s1">&#39;Water damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;FBA&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;dotcom sales&#39;</span><span class="p">,</span> <span class="s1">&#39;Dotcom&#39;</span><span class="p">,</span> <span class="s1">&#39;Dotcom sales&#39;</span><span class="p">,</span> <span class="s1">&#39;Damages/samples&#39;</span><span class="p">,</span> <span class="s1">&#39;on cargo order&#39;</span><span class="p">,</span> <span class="s1">&#39;adjustment&#39;</span><span class="p">,</span> <span class="s1">&#39;dotcom&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;damages?&#39;</span><span class="p">,</span> <span class="s1">&#39;mystery! Only ever imported 1800&#39;</span><span class="p">,</span> <span class="s1">&#39;MIA&#39;</span><span class="p">,</span> <span class="s1">&#39;wet&#39;</span><span class="p">,</span> <span class="s1">&#39;samples&#39;</span><span class="p">,</span> <span class="s1">&#39;sold as set on dotcom and amazon&#39;</span><span class="p">,</span> 
+     <span class="s1">&#39;sold as 1&#39;</span><span class="p">,</span> <span class="s1">&#39;MERCHANT CHANDLER CREDIT ERROR, STO&#39;</span><span class="p">,</span> <span class="s1">&#39;OOPS ! adjustment&#39;</span><span class="p">,</span><span class="s1">&#39;Missing&#39;</span><span class="p">,</span> <span class="s1">&#39;?lost&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;found some more on shelf&#39;</span><span class="p">,</span> <span class="s1">&#39;reverse previous adjustment&#39;</span><span class="p">,</span><span class="s1">&#39;Amazon sold sets&#39;</span><span class="p">,</span> <span class="s1">&#39;dotcom sold sets&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;mix up with c&#39;</span><span class="p">,</span> <span class="s1">&#39;wrongly sold sets&#39;</span><span class="p">,</span>  <span class="s1">&#39;? sold as sets?&#39;</span><span class="p">,</span> <span class="s1">&#39;damages/display&#39;</span><span class="p">,</span> <span class="s1">&#39;Not rcvd in 10/11/2010 delivery&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Amazon Adjustment&#39;</span><span class="p">,</span> <span class="s1">&#39;CHECK&#39;</span><span class="p">,</span> <span class="s1">&#39;damaged stock&#39;</span><span class="p">,</span> <span class="s1">&#39;showroom&#39;</span><span class="p">,</span> <span class="s1">&#39;found box&#39;</span><span class="p">,</span> <span class="s1">&#39;stock check&#39;</span><span class="p">,</span> <span class="s1">&#39;barcode problem&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;Found in w/hse&#39;</span><span class="p">,</span> <span class="s1">&#39;damages/credits from ASOS.&#39;</span><span class="p">,</span> <span class="s1">&#39;damages?&#39;</span><span class="p">,</span> <span class="s1">&#39;damages/showroom etc&#39;</span><span class="p">,</span> <span class="s1">&#39;had been put aside&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;DAMAGED&#39;</span><span class="p">,</span> <span class="s1">&#39;sold as 1&#39;</span><span class="p">,</span> <span class="s1">&#39;?missing&#39;</span><span class="p">,</span> <span class="s1">&#39;taig adjust&#39;</span><span class="p">,</span> <span class="s1">&#39;Wet pallet-thrown away&#39;</span><span class="p">,</span> <span class="s1">&#39;Had been put aside.&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;did  a credit  and did not tick ret&#39;</span><span class="p">,</span> <span class="s1">&#39;damages wax&#39;</span><span class="p">,</span> <span class="s1">&#39;thrown away&#39;</span><span class="p">,</span> <span class="s1">&#39;damages?&#39;</span><span class="p">,</span> <span class="s1">&#39;Adjustment&#39;</span><span class="p">,</span> <span class="s1">&#39;?display?&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;WET/MOULDY&#39;</span><span class="p">,</span> <span class="s1">&#39;adjust&#39;</span><span class="p">,</span> <span class="s1">&#39;damages wax&#39;</span><span class="p">,</span> <span class="s1">&#39;returned&#39;</span><span class="p">,</span> <span class="s1">&#39;mixed up&#39;</span><span class="p">,</span> <span class="s1">&#39;crushed&#39;</span><span class="p">,</span> <span class="s1">&#39;label mix up&#39;</span><span class="p">,</span> <span class="s1">&#39;lost??&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Sold as 1 on dotcom&#39;</span><span class="p">,</span> <span class="s1">&#39;sold as set by dotcom&#39;</span><span class="p">,</span> <span class="s1">&#39;smashed&#39;</span><span class="p">,</span> <span class="s1">&#39;Dagamed&#39;</span><span class="p">,</span> <span class="s1">&#39;water damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;wrong barcode&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;check?&#39;</span><span class="p">,</span> <span class="s1">&#39;wet/rusty&#39;</span><span class="p">,</span> <span class="s1">&#39;Thrown away.&#39;</span><span class="p">,</span> <span class="s1">&#39;ebay&#39;</span><span class="p">,</span> <span class="s1">&#39;thrown away&#39;</span><span class="p">,</span> <span class="s1">&#39;crushed boxes&#39;</span><span class="p">,</span> <span class="s1">&#39;stock creditted wrongly&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;stock check&#39;</span><span class="p">,</span> <span class="s1">&#39;wet damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;samples/damages&#39;</span><span class="p">,</span> <span class="s1">&#39;to push order througha s stock was&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Unsaleable, destroyed.&#39;</span><span class="p">,</span> <span class="s1">&#39;wet damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;Given away&#39;</span><span class="p">,</span> <span class="s1">&#39;wet?&#39;</span><span class="p">,</span> <span class="s1">&#39;Printing smudges/thrown away&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;printing smudges/thrown away&#39;</span><span class="p">,</span> <span class="s1">&#39;thrown away&#39;</span><span class="p">,</span>  <span class="s1">&#39;had been put aside&#39;</span><span class="p">,</span> <span class="s1">&#39;rusty throw away&#39;</span><span class="p">,</span> <span class="s1">&#39;Crushed&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;mailout&#39;</span><span class="p">,</span><span class="s1">&#39;temp adjustment&#39;</span><span class="p">,</span> <span class="s1">&#39;allocate stock for dotcom orders ta&#39;</span><span class="p">,</span> <span class="s1">&#39;add stock to allocate online orders&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;for online retail orders&#39;</span><span class="p">,</span> <span class="s1">&#39;website fixed&#39;</span><span class="p">,</span> <span class="s1">&#39;Breakages&#39;</span><span class="p">,</span> <span class="s1">&#39;smashed&#39;</span><span class="p">,</span> <span class="s1">&#39;wet damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;incorrect stock entry.&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Lighthouse Trading zero invc incorr&#39;</span><span class="p">,</span> <span class="s1">&#39;Incorrect stock entry.&#39;</span><span class="p">,</span><span class="s1">&#39;mouldy&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;alan hodge cant mamage this section&#39;</span><span class="p">,</span> <span class="s1">&#39;incorrectly credited C550456 see 47&#39;</span> 
+    <span class="p">]</span>
+    
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_path</span><span class="p">,</span> <span class="n">data_file</span><span class="p">,</span> <span class="n">remove_sw</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read, preprocess, and plot Online retail data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        target_path : str</span>
+<span class="sd">            local working directory where data should be stored.</span>
+<span class="sd">        data_file : str</span>
+<span class="sd">            name of file to which data should be saved.</span>
+<span class="sd">        remove_sw = False : bool</span>
+<span class="sd">            indicates, whether all rows, where description contains stop </span>
+<span class="sd">            words must be rmeoved after preprocessing </span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cwd : str</span>
+<span class="sd">            Information about the current working directory.</span>
+<span class="sd">        summary_stats : DataFrame</span>
+<span class="sd">            Summary statistics of the Online retail data.</span>
+<span class="sd">        plot : plt.plot</span>
+<span class="sd">            Plot of the Online retail data.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_path</span> <span class="o">=</span> <span class="n">target_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_file</span> <span class="o">=</span> <span class="n">data_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_sw</span> <span class="o">=</span> <span class="n">remove_sw</span>
+        
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># set current working directory   </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_cwd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_path</span><span class="p">)</span>
+        <span class="c1"># read data set</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_file</span><span class="p">)</span>
+        <span class="c1">#preprocess data set</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_preprocessed</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantity_boxplot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scatter_price_quant</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_summary</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+  
+  
+<div class="viewcode-block" id="retail.set_cwd">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.set_cwd">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_cwd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set current working directory to desired local path</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        target_path : str</span>
+<span class="sd">            local path that should be used as current working directory.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        current_working_directory : str</span>
+<span class="sd">            Prints current working directory.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># set the current working directory </span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">target_path</span><span class="p">)</span>
+        
+        <span class="c1"># get current working directory</span>
+        <span class="n">current_wd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;current working directory:&quot;</span><span class="p">,</span> <span class="n">current_wd</span><span class="p">)</span></div>
+
+    
+           
+<div class="viewcode-block" id="retail.read_data">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.read_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">data_file</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads data from a CSV file into a Polars DataFrame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_file : str</span>
+<span class="sd">            The name of the CSV file containing the data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : polars.DataFrame</span>
+<span class="sd">            A Polars DataFrame containing the data read from the CSV file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">dtypes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+        
+ 
+<div class="viewcode-block" id="retail.remove_spaces">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.remove_spaces">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes extra spaces from a string.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        arr : str</span>
+<span class="sd">            Input string containing extra spaces.</span>
+<span class="sd">    </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            String with extra spaces removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dat_arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">dat_arr</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dat_arr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+        <span class="n">dat_arr</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dat_arr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dat_arr</span></div>
+
+    
+<div class="viewcode-block" id="retail.find_match">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.find_match">[docs]</a>
+    <span class="k">def</span> <span class="nf">find_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Searches for specific patterns in a string. Here used to find descriptions </span>
+<span class="sd">           that contain information about broken products.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        s : str</span>
+<span class="sd">            Input string to search for patterns.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if any of the specified patterns are found in the string, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pattern1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\bwrong&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span> 
+        <span class="n">pattern2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;code&#39;</span><span class="p">)</span> 
+        <span class="n">pattern3</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;debt&#39;</span><span class="p">)</span> 
+        <span class="n">pattern4</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Marked&#39;</span><span class="p">)</span> 
+        <span class="n">pattern5</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;207&#39;</span><span class="p">)</span> 
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern1</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">or</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern2</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">or</span> 
+                                       <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern4</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">or</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern3</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">or</span>
+                                      <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern5</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span></div>
+
+    
+
+<div class="viewcode-block" id="retail.find_stopWords">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.find_stopWords">[docs]</a>
+    <span class="k">def</span> <span class="nf">find_stopWords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">sw</span> <span class="o">=</span> <span class="n">sw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks if a word is a stop word.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        word : str</span>
+<span class="sd">            The string to check.</span>
+<span class="sd">        sw : list, optional</span>
+<span class="sd">            List of stop words. Default is the variable `sw`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or None</span>
+<span class="sd">            The input word if it is a stop word, otherwise None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sw</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="n">word</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+    
+<div class="viewcode-block" id="retail.replace_stopWords">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.replace_stopWords">[docs]</a>
+    <span class="k">def</span> <span class="nf">replace_stopWords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">sw</span> <span class="o">=</span> <span class="n">sw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replaces stop words with None.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        word : str</span>
+<span class="sd">            The string to check.</span>
+<span class="sd">        sw : list, optional</span>
+<span class="sd">            List of stop words. Default is the variable `sw`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or None</span>
+<span class="sd">            None if the input word is a stop word, otherwise the input word.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sw</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">word</span></div>
+
+        
+<div class="viewcode-block" id="retail.most_frequent">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.most_frequent">[docs]</a>
+    <span class="k">def</span> <span class="nf">most_frequent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptions</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Finds the most frequent element in a list of descriptions.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        descriptions : List[str]</span>
+<span class="sd">            List of descriptions.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or None</span>
+<span class="sd">            The most frequent description in the list. If the list is empty, returns None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">descriptions</span> <span class="o">=</span> <span class="n">descriptions</span><span class="o">.</span><span class="n">drop_nans</span><span class="p">()</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">descriptions</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">descriptions</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">descriptions</span><span class="o">.</span><span class="n">count</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="retail.data_preprocessed">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.data_preprocessed">[docs]</a>
+    <span class="k">def</span> <span class="nf">data_preprocessed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;preprocess data </span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_file : str</span>
+<span class="sd">            name of locally saved data file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        df_joined : polars.DataFrame</span>
+<span class="sd">            Preprocessed data set with 84 observations and 6 variables (subject, </span>
+<span class="sd">            gender, scenario, attitude, frequency, mean_pitch).</span>
+<span class="sd">        summaries : polars.DataFrame</span>
+<span class="sd">            Mean pitch value grouped by attitude (informel, polite) and gender </span>
+<span class="sd">            (female, male).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;Description&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map_elements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">remove_spaces</span><span class="p">))</span>
+        <span class="c1">#removed wrong codes</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">map_elements</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_match</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;matches&quot;</span><span class="p">))</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;matches&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">is_null</span><span class="p">())</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;matches&#39;</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">map_elements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">find_stopWords</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s1">&#39;addition&#39;</span><span class="p">))</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">map_elements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">replace_stopWords</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_sw</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;addition&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">is_null</span><span class="p">())</span><span class="c1">#.drop(&#39;addition&#39;)</span>
+
+        <span class="n">grouped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;StockCode&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;temp&quot;</span><span class="p">))</span>
+        <span class="n">grouped</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;temp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">map_elements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">most_frequent</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s1">&#39;Description&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;temp&quot;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">grouped</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;StockCode&#39;</span><span class="p">)</span> 
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">~</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">is_null</span><span class="p">(),</span>  <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Quantity&#39;</span><span class="p">)</span><span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;UnitPrice&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;InvoiceNo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Int32</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="retail.get_summary">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.get_summary">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a summary of the dataset including various statistics.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data :  polars.DataFrame</span>
+<span class="sd">            Input  polars.DataFrame containing the dataset.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            Prints the summary of the dataset including the following statistics:</span>
+<span class="sd">            - Number of unique invoice codes</span>
+<span class="sd">            - Number of unique stock codes</span>
+<span class="sd">            - Average number of stock codes per invoice</span>
+<span class="sd">            - Average quantity per stock code</span>
+<span class="sd">            - Number of unique customer IDs</span>
+<span class="sd">            - Country with the most stock codes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Number of unique invoice codes</span>
+        <span class="n">unique_invoice_codes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+
+        <span class="c1"># Number of unique stock codes</span>
+        <span class="n">unique_stock_codes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;StockCode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+
+        <span class="c1"># Average number of stock codes per one invoice code</span>
+        <span class="n">avg_stock_codes_per_invoice</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;StockCode&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;StockCode&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">.</span><span class="n">get_columns</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Average quantity per stock code</span>
+        <span class="n">avg_quantity_per_stock_code</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s1">&#39;StockCode&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Quantity&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Quantity&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">.</span><span class="n">get_columns</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Number of unique customer IDs</span>
+        <span class="n">unique_customer_ids</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;CustomerID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+
+        <span class="c1"># Countries where there are at most unique invoice  codes</span>
+        <span class="n">countries_with_most_stock_codes</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s1">&#39;Country&#39;</span><span class="p">,</span> <span class="s1">&#39;InvoiceNo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;StockCode&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s1">&#39;Country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;InvoiceNo&#39;</span><span class="p">,</span> <span class="n">descending</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">get_columns</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Display the summary</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Summary of the Dataset:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of Unique Invoice Codes: </span><span class="si">{</span><span class="n">unique_invoice_codes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of Unique Stock Codes: </span><span class="si">{</span><span class="n">unique_stock_codes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Number of Stock Codes per Invoice: </span><span class="si">{</span><span class="n">avg_stock_codes_per_invoice</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Quantity per Stock Code: </span><span class="si">{</span><span class="n">avg_quantity_per_stock_code</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of Unique Customer IDs: </span><span class="si">{</span><span class="n">unique_customer_ids</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Country with Most Stock Codes: </span><span class="si">{</span><span class="n">countries_with_most_stock_codes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="retail.plot_map">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.plot_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Plot a map with countries colored based on the number of invoices.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : polars.DataFrame</span>
+<span class="sd">            Input polars.DataFrame containing the dataset with country-wise invoice information.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ---------</span>
+<span class="sd">        None</span>
+<span class="sd">            Displays a map with countries colored based on the number of invoices</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Load country boundaries</span>
+        <span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">gpd</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;naturalearth_lowres&#39;</span><span class="p">))</span>
+
+        <span class="n">countries_with</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s1">&#39;Country&#39;</span><span class="p">,</span> <span class="s1">&#39;InvoiceNo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;StockCode&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s1">&#39;Country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">))</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">countries_with</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">countries_with</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="n">da</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">da</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;RSA&#39;</span><span class="p">,</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;South Africa&#39;</span>
+        <span class="n">da</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">da</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;USA&#39;</span><span class="p">,</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;United States of America&#39;</span>
+        <span class="n">da</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">da</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Czech Republic&#39;</span><span class="p">,</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Czechia&#39;</span>
+        <span class="n">da</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">da</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EIRE&#39;</span><span class="p">,</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Ireland&#39;</span>
+
+        <span class="n">merged</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s1">&#39;Country&#39;</span><span class="p">)</span>
+        <span class="n">merged</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="s1">&#39;InvoiceNo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">merged</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;OrRd&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;0.8&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Number of invoices by country&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Create legend</span>
+        <span class="n">cax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span> 
+        <span class="n">sm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;OrRd&#39;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">]),</span> <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;InvoiceNo&#39;</span><span class="p">])))</span>
+        <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Number of invoices&#39;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="retail.quantity_boxplot">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.quantity_boxplot">[docs]</a>
+    <span class="k">def</span> <span class="nf">quantity_boxplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a box plot showing the distribution of quantity of items bought for each product.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : DataFrame</span>
+<span class="sd">            Input DataFrame containing the quantity of items bought for each product.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            Displays the box plot with the quantity of items.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Quantity of items&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Boxplot with the quantity of items bought for each product&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Quantity of items&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Boxplot with the quantity of items bought for each product (zoomed)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="retail.scatter_price_quant">
+<a class="viewcode-back" href="../../retail.html#retail.class_retail.retail.scatter_price_quant">[docs]</a>
+    <span class="k">def</span> <span class="nf">scatter_price_quant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Create a scatter plot to visualize the relationship between unit price and quantity purchased.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : polars.DataFrame</span>
+<span class="sd">            Input DataFrame containing the data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            Displays the scatter plot.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;UnitPrice&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Quantity of items&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Price&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Relationship Between Unit Price and Quantity Purchased&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2000</span><span class="p">])</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emona Bakalova, Mariia Hrechyn, Alican Ohkay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

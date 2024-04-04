@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="english" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>retail package &mdash; Retail analysis 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=013c598b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example project" href="example/showcase.html" />
+    <link rel="prev" title="Welcome to retail&#39;s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Retail analysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-retail.class_customer">retail.class_customer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#retail.class_customer.Customer"><code class="docutils literal notranslate"><span class="pre">Customer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_customer.Customer.avg_transaction_amount"><code class="docutils literal notranslate"><span class="pre">Customer.avg_transaction_amount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_customer.Customer.avg_transaction_amounts_plot"><code class="docutils literal notranslate"><span class="pre">Customer.avg_transaction_amounts_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_customer.Customer.categorize_spending"><code class="docutils literal notranslate"><span class="pre">Customer.categorize_spending()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_customer.Customer.country_distribution_plot"><code class="docutils literal notranslate"><span class="pre">Customer.country_distribution_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_customer.Customer.customer_segmentation_plot"><code class="docutils literal notranslate"><span class="pre">Customer.customer_segmentation_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_customer.Customer.total_spent"><code class="docutils literal notranslate"><span class="pre">Customer.total_spent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_customer.Customer.total_transactions"><code class="docutils literal notranslate"><span class="pre">Customer.total_transactions()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-retail.class_retail">retail.class_retail module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#retail.class_retail.retail"><code class="docutils literal notranslate"><span class="pre">retail</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.data_preprocessed"><code class="docutils literal notranslate"><span class="pre">retail.data_preprocessed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.find_match"><code class="docutils literal notranslate"><span class="pre">retail.find_match()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.find_stopWords"><code class="docutils literal notranslate"><span class="pre">retail.find_stopWords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.get_summary"><code class="docutils literal notranslate"><span class="pre">retail.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.most_frequent"><code class="docutils literal notranslate"><span class="pre">retail.most_frequent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.plot_map"><code class="docutils literal notranslate"><span class="pre">retail.plot_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.quantity_boxplot"><code class="docutils literal notranslate"><span class="pre">retail.quantity_boxplot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.read_data"><code class="docutils literal notranslate"><span class="pre">retail.read_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.remove_spaces"><code class="docutils literal notranslate"><span class="pre">retail.remove_spaces()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.replace_stopWords"><code class="docutils literal notranslate"><span class="pre">retail.replace_stopWords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.scatter_price_quant"><code class="docutils literal notranslate"><span class="pre">retail.scatter_price_quant()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.set_cwd"><code class="docutils literal notranslate"><span class="pre">retail.set_cwd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retail.class_retail.retail.sw"><code class="docutils literal notranslate"><span class="pre">retail.sw</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-retail">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example/showcase.html">Example</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Retail analysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">retail package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/retail.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="retail-package">
+<h1>retail package<a class="headerlink" href="#retail-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-retail.class_customer">
+<span id="retail-class-customer-module"></span><h2>retail.class_customer module<a class="headerlink" href="#module-retail.class_customer" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="retail.class_customer.Customer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">retail.class_customer.</span></span><span class="sig-name descname"><span class="pre">Customer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">customer_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_customer.html#Customer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_customer.Customer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_customer.Customer.avg_transaction_amount" title="retail.class_customer.Customer.avg_transaction_amount"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_transaction_amount</span></code></a>()</p></td>
+<td><p>Calculate the average transaction amount for the customer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_customer.Customer.avg_transaction_amounts_plot" title="retail.class_customer.Customer.avg_transaction_amounts_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_transaction_amounts_plot</span></code></a>(dataset)</p></td>
+<td><p>Calculate average transaction amount for each customer and plot it using a box plot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_customer.Customer.categorize_spending" title="retail.class_customer.Customer.categorize_spending"><code class="xref py py-obj docutils literal notranslate"><span class="pre">categorize_spending</span></code></a>()</p></td>
+<td><p>Categorize customers based on total transaction amount.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_customer.Customer.country_distribution_plot" title="retail.class_customer.Customer.country_distribution_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">country_distribution_plot</span></code></a>(dataset)</p></td>
+<td><p>Visualize geographical sales distribution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_customer.Customer.customer_segmentation_plot" title="retail.class_customer.Customer.customer_segmentation_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">customer_segmentation_plot</span></code></a>(dataset)</p></td>
+<td><p>Visualize customer segmentation based on purchase history and quantity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_customer.Customer.total_spent" title="retail.class_customer.Customer.total_spent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_spent</span></code></a>()</p></td>
+<td><p>Calculate the total amount spent by the customer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_customer.Customer.total_transactions" title="retail.class_customer.Customer.total_transactions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_transactions</span></code></a>()</p></td>
+<td><p>Calculate the total number of transactions made by the customer.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_customer.Customer.avg_transaction_amount">
+<span class="sig-name descname"><span class="pre">avg_transaction_amount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_customer.html#Customer.avg_transaction_amount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_customer.Customer.avg_transaction_amount" title="Link to this definition"></a></dt>
+<dd><p>Calculate the average transaction amount for the customer.</p>
+<p>Returns:
+- float: The average transaction amount for the customer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_customer.Customer.avg_transaction_amounts_plot">
+<span class="sig-name descname"><span class="pre">avg_transaction_amounts_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_customer.html#Customer.avg_transaction_amounts_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_customer.Customer.avg_transaction_amounts_plot" title="Link to this definition"></a></dt>
+<dd><p>Calculate average transaction amount for each customer and plot it using a box plot.</p>
+<p>Parameters:
+- dataset (pandas DataFrame): DataFrame containing transaction records for all customers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_customer.Customer.categorize_spending">
+<span class="sig-name descname"><span class="pre">categorize_spending</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_customer.html#Customer.categorize_spending"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_customer.Customer.categorize_spending" title="Link to this definition"></a></dt>
+<dd><p>Categorize customers based on total transaction amount.</p>
+<p>Returns:
+- str: Spending category of the customer ('Low Spender', 'Medium Spender', 'High Spender', or 'Unknown').</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_customer.Customer.country_distribution_plot">
+<span class="sig-name descname"><span class="pre">country_distribution_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_customer.html#Customer.country_distribution_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_customer.Customer.country_distribution_plot" title="Link to this definition"></a></dt>
+<dd><p>Visualize geographical sales distribution.</p>
+<p>Parameters:
+- dataset (pandas DataFrame): DataFrame containing transaction records for all customers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_customer.Customer.customer_segmentation_plot">
+<span class="sig-name descname"><span class="pre">customer_segmentation_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_customer.html#Customer.customer_segmentation_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_customer.Customer.customer_segmentation_plot" title="Link to this definition"></a></dt>
+<dd><p>Visualize customer segmentation based on purchase history and quantity.</p>
+<p>Parameters:
+- dataset (pandas DataFrame): DataFrame containing transaction records for all customers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_customer.Customer.total_spent">
+<span class="sig-name descname"><span class="pre">total_spent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_customer.html#Customer.total_spent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_customer.Customer.total_spent" title="Link to this definition"></a></dt>
+<dd><p>Calculate the total amount spent by the customer.</p>
+<p>Returns:
+- str: The total amount spent by the customer formatted as dollars.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_customer.Customer.total_transactions">
+<span class="sig-name descname"><span class="pre">total_transactions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_customer.html#Customer.total_transactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_customer.Customer.total_transactions" title="Link to this definition"></a></dt>
+<dd><p>Calculate the total number of transactions made by the customer.</p>
+<p>Returns:
+- int: Total number of transactions made by the customer.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-retail.class_retail">
+<span id="retail-class-retail-module"></span><h2>retail.class_retail module<a class="headerlink" href="#module-retail.class_retail" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="retail.class_retail.retail">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">retail.class_retail.</span></span><span class="sig-name descname"><span class="pre">retail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_sw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>()</p></td>
+<td><p>Call self as a function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_retail.retail.data_preprocessed" title="retail.class_retail.retail.data_preprocessed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_preprocessed</span></code></a>(data)</p></td>
+<td><p>preprocess data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_retail.retail.find_match" title="retail.class_retail.retail.find_match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_match</span></code></a>(s)</p></td>
+<td><p>Searches for specific patterns in a string. Here used to find descriptions</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_retail.retail.find_stopWords" title="retail.class_retail.retail.find_stopWords"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_stopWords</span></code></a>(word[, sw])</p></td>
+<td><p>Checks if a word is a stop word.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_retail.retail.get_summary" title="retail.class_retail.retail.get_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_summary</span></code></a>(data)</p></td>
+<td><p>Generate a summary of the dataset including various statistics.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_retail.retail.most_frequent" title="retail.class_retail.retail.most_frequent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">most_frequent</span></code></a>(descriptions)</p></td>
+<td><p>Finds the most frequent element in a list of descriptions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_retail.retail.plot_map" title="retail.class_retail.retail.plot_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_map</span></code></a>(data)</p></td>
+<td><p>Plot a map with countries colored based on the number of invoices.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_retail.retail.quantity_boxplot" title="retail.class_retail.retail.quantity_boxplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quantity_boxplot</span></code></a>(data)</p></td>
+<td><p>Generates a box plot showing the distribution of quantity of items bought for each product.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_retail.retail.read_data" title="retail.class_retail.retail.read_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_data</span></code></a>(data_file)</p></td>
+<td><p>Reads data from a CSV file into a Polars DataFrame.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_retail.retail.remove_spaces" title="retail.class_retail.retail.remove_spaces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_spaces</span></code></a>(arr)</p></td>
+<td><p>Removes extra spaces from a string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_retail.retail.replace_stopWords" title="retail.class_retail.retail.replace_stopWords"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace_stopWords</span></code></a>(word[, sw])</p></td>
+<td><p>Replaces stop words with None.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#retail.class_retail.retail.scatter_price_quant" title="retail.class_retail.retail.scatter_price_quant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scatter_price_quant</span></code></a>(data)</p></td>
+<td><p>Create a scatter plot to visualize the relationship between unit price and quantity purchased.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#retail.class_retail.retail.set_cwd" title="retail.class_retail.retail.set_cwd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cwd</span></code></a>(target_path)</p></td>
+<td><p>Set current working directory to desired local path</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.data_preprocessed">
+<span class="sig-name descname"><span class="pre">data_preprocessed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.data_preprocessed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.data_preprocessed" title="Link to this definition"></a></dt>
+<dd><p>preprocess data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data_file</strong><span class="classifier">str</span></dt><dd><p>name of locally saved data file.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>df_joined</strong><span class="classifier">polars.DataFrame</span></dt><dd><p>Preprocessed data set with 84 observations and 6 variables (subject,
+gender, scenario, attitude, frequency, mean_pitch).</p>
+</dd>
+<dt><strong>summaries</strong><span class="classifier">polars.DataFrame</span></dt><dd><p>Mean pitch value grouped by attitude (informel, polite) and gender
+(female, male).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.find_match">
+<span class="sig-name descname"><span class="pre">find_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.find_match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.find_match" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Searches for specific patterns in a string. Here used to find descriptions</dt><dd><p>that contain information about broken products.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>s</strong><span class="classifier">str</span></dt><dd><p>Input string to search for patterns.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>bool</dt><dd><p>True if any of the specified patterns are found in the string, False otherwise.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.find_stopWords">
+<span class="sig-name descname"><span class="pre">find_stopWords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['?',</span> <span class="pre">'??',</span> <span class="pre">'???',</span> <span class="pre">'check',</span> <span class="pre">'found',</span> <span class="pre">'amazon',</span> <span class="pre">'damaged',</span> <span class="pre">'damages',</span> <span class="pre">'amazon',</span> <span class="pre">'crushed',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'water</span> <span class="pre">damage',</span> <span class="pre">'Found',</span> <span class="pre">'missing',</span> <span class="pre">'???lost',</span> <span class="pre">'AMAZON',</span> <span class="pre">'Damaged',</span> <span class="pre">'counted',</span> <span class="pre">'wet</span> <span class="pre">pallet',</span> <span class="pre">'????missing',</span> <span class="pre">'Water</span> <span class="pre">damaged',</span> <span class="pre">'adjustment',</span> <span class="pre">'dotcom',</span> <span class="pre">'mouldy,</span> <span class="pre">thrown</span> <span class="pre">away.',</span> <span class="pre">'Show</span> <span class="pre">Samples',</span> <span class="pre">'lost',</span> <span class="pre">'incorrectly</span> <span class="pre">made-thrown</span> <span class="pre">away.',</span> <span class="pre">'re-adjustment',</span> <span class="pre">'damages/dotcom?',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set/6</span> <span class="pre">by</span> <span class="pre">dotcom',</span> <span class="pre">'cracked',</span> <span class="pre">'crushed</span> <span class="pre">ctn',</span> <span class="pre">'taig</span> <span class="pre">adjust</span> <span class="pre">no</span> <span class="pre">stock',</span> <span class="pre">'POSSIBLE</span> <span class="pre">DAMAGES</span> <span class="pre">OR</span> <span class="pre">LOST?',</span> <span class="pre">&quot;Dotcom</span> <span class="pre">sold</span> <span class="pre">in</span> <span class="pre">6's&quot;,</span> <span class="pre">'sold</span> <span class="pre">in</span> <span class="pre">set?',</span> <span class="pre">'reverse</span> <span class="pre">21/5/10</span> <span class="pre">adjustment',</span> <span class="pre">&quot;can't</span> <span class="pre">find&quot;,</span> <span class="pre">'?missing',</span> <span class="pre">'??</span> <span class="pre">missing',</span> <span class="pre">'amazon</span> <span class="pre">adjust',</span> <span class="pre">'Dotcom</span> <span class="pre">set',</span> <span class="pre">'wrongly</span> <span class="pre">sold</span> <span class="pre">as</span> <span class="pre">sets',</span> <span class="pre">'?sold</span> <span class="pre">as</span> <span class="pre">sets?',</span> <span class="pre">'mouldy,</span> <span class="pre">unsaleable.',</span> <span class="pre">'Amazon',</span> <span class="pre">'faulty',</span> <span class="pre">'rcvd</span> <span class="pre">be</span> <span class="pre">air</span> <span class="pre">temp</span> <span class="pre">fix</span> <span class="pre">for</span> <span class="pre">dotcom</span> <span class="pre">sit',</span> <span class="pre">'re</span> <span class="pre">dotcom</span> <span class="pre">quick</span> <span class="pre">fix.',</span> <span class="pre">'Dotcom</span> <span class="pre">sales',</span> <span class="pre">'missing?',</span> <span class="pre">'reverse</span> <span class="pre">21/5/10</span> <span class="pre">adjustment',</span> <span class="pre">'incorrectly</span> <span class="pre">put</span> <span class="pre">back</span> <span class="pre">into</span> <span class="pre">stock',</span> <span class="pre">'damages?',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'wet</span> <span class="pre">boxes',</span> <span class="pre">'wet</span> <span class="pre">rusty',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'????damages????',</span> <span class="pre">'historic</span> <span class="pre">computer</span> <span class="pre">difference?....se',</span> <span class="pre">'smashed',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'dotcomstock',</span> <span class="pre">'mixed</span> <span class="pre">up',</span> <span class="pre">'michel</span> <span class="pre">oops',</span> <span class="pre">'test',</span> <span class="pre">'lost</span> <span class="pre">in</span> <span class="pre">space',</span> <span class="pre">'amazon</span> <span class="pre">sales',</span> <span class="pre">'FOUND',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'wet</span> <span class="pre">pallet',</span> <span class="pre">'???missing',</span> <span class="pre">'Water</span> <span class="pre">damaged',</span> <span class="pre">'FBA',</span> <span class="pre">'dotcom</span> <span class="pre">sales',</span> <span class="pre">'Dotcom',</span> <span class="pre">'Dotcom</span> <span class="pre">sales',</span> <span class="pre">'Damages/samples',</span> <span class="pre">'on</span> <span class="pre">cargo</span> <span class="pre">order',</span> <span class="pre">'adjustment',</span> <span class="pre">'dotcom',</span> <span class="pre">'damages?',</span> <span class="pre">'mystery!</span> <span class="pre">Only</span> <span class="pre">ever</span> <span class="pre">imported</span> <span class="pre">1800',</span> <span class="pre">'MIA',</span> <span class="pre">'wet',</span> <span class="pre">'samples',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom</span> <span class="pre">and</span> <span class="pre">amazon',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">1',</span> <span class="pre">'MERCHANT</span> <span class="pre">CHANDLER</span> <span class="pre">CREDIT</span> <span class="pre">ERROR,</span> <span class="pre">STO',</span> <span class="pre">'OOPS</span> <span class="pre">!</span> <span class="pre">adjustment',</span> <span class="pre">'Missing',</span> <span class="pre">'?lost',</span> <span class="pre">'found</span> <span class="pre">some</span> <span class="pre">more</span> <span class="pre">on</span> <span class="pre">shelf',</span> <span class="pre">'reverse</span> <span class="pre">previous</span> <span class="pre">adjustment',</span> <span class="pre">'Amazon</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'dotcom</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'mix</span> <span class="pre">up</span> <span class="pre">with</span> <span class="pre">c',</span> <span class="pre">'wrongly</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'?</span> <span class="pre">sold</span> <span class="pre">as</span> <span class="pre">sets?',</span> <span class="pre">'damages/display',</span> <span class="pre">'Not</span> <span class="pre">rcvd</span> <span class="pre">in</span> <span class="pre">10/11/2010</span> <span class="pre">delivery',</span> <span class="pre">'Amazon</span> <span class="pre">Adjustment',</span> <span class="pre">'CHECK',</span> <span class="pre">'damaged</span> <span class="pre">stock',</span> <span class="pre">'showroom',</span> <span class="pre">'found</span> <span class="pre">box',</span> <span class="pre">'stock</span> <span class="pre">check',</span> <span class="pre">'barcode</span> <span class="pre">problem',</span> <span class="pre">'Found</span> <span class="pre">in</span> <span class="pre">w/hse',</span> <span class="pre">'damages/credits</span> <span class="pre">from</span> <span class="pre">ASOS.',</span> <span class="pre">'damages?',</span> <span class="pre">'damages/showroom</span> <span class="pre">etc',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'DAMAGED',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">1',</span> <span class="pre">'?missing',</span> <span class="pre">'taig</span> <span class="pre">adjust',</span> <span class="pre">'Wet</span> <span class="pre">pallet-thrown</span> <span class="pre">away',</span> <span class="pre">'Had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside.',</span> <span class="pre">'did</span>&#160; <span class="pre">a</span> <span class="pre">credit</span>&#160; <span class="pre">and</span> <span class="pre">did</span> <span class="pre">not</span> <span class="pre">tick</span> <span class="pre">ret',</span> <span class="pre">'damages</span> <span class="pre">wax',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'damages?',</span> <span class="pre">'Adjustment',</span> <span class="pre">'?display?',</span> <span class="pre">'WET/MOULDY',</span> <span class="pre">'adjust',</span> <span class="pre">'damages</span> <span class="pre">wax',</span> <span class="pre">'returned',</span> <span class="pre">'mixed</span> <span class="pre">up',</span> <span class="pre">'crushed',</span> <span class="pre">'label</span> <span class="pre">mix</span> <span class="pre">up',</span> <span class="pre">'lost??',</span> <span class="pre">'Sold</span> <span class="pre">as</span> <span class="pre">1</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">by</span> <span class="pre">dotcom',</span> <span class="pre">'smashed',</span> <span class="pre">'Dagamed',</span> <span class="pre">'water</span> <span class="pre">damaged',</span> <span class="pre">'wrong</span> <span class="pre">barcode',</span> <span class="pre">'check?',</span> <span class="pre">'wet/rusty',</span> <span class="pre">'Thrown</span> <span class="pre">away.',</span> <span class="pre">'ebay',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'crushed</span> <span class="pre">boxes',</span> <span class="pre">'stock</span> <span class="pre">creditted</span> <span class="pre">wrongly',</span> <span class="pre">'stock</span> <span class="pre">check',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'test',</span> <span class="pre">'samples/damages',</span> <span class="pre">'to</span> <span class="pre">push</span> <span class="pre">order</span> <span class="pre">througha</span> <span class="pre">s</span> <span class="pre">stock</span> <span class="pre">was',</span> <span class="pre">'Unsaleable,</span> <span class="pre">destroyed.',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'Given</span> <span class="pre">away',</span> <span class="pre">'wet?',</span> <span class="pre">'Printing</span> <span class="pre">smudges/thrown</span> <span class="pre">away',</span> <span class="pre">'printing</span> <span class="pre">smudges/thrown</span> <span class="pre">away',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'rusty</span> <span class="pre">throw</span> <span class="pre">away',</span> <span class="pre">'Crushed',</span> <span class="pre">'mailout',</span> <span class="pre">'temp</span> <span class="pre">adjustment',</span> <span class="pre">'allocate</span> <span class="pre">stock</span> <span class="pre">for</span> <span class="pre">dotcom</span> <span class="pre">orders</span> <span class="pre">ta',</span> <span class="pre">'add</span> <span class="pre">stock</span> <span class="pre">to</span> <span class="pre">allocate</span> <span class="pre">online</span> <span class="pre">orders',</span> <span class="pre">'for</span> <span class="pre">online</span> <span class="pre">retail</span> <span class="pre">orders',</span> <span class="pre">'website</span> <span class="pre">fixed',</span> <span class="pre">'Breakages',</span> <span class="pre">'smashed',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'incorrect</span> <span class="pre">stock</span> <span class="pre">entry.',</span> <span class="pre">'Lighthouse</span> <span class="pre">Trading</span> <span class="pre">zero</span> <span class="pre">invc</span> <span class="pre">incorr',</span> <span class="pre">'Incorrect</span> <span class="pre">stock</span> <span class="pre">entry.',</span> <span class="pre">'mouldy',</span> <span class="pre">'alan</span> <span class="pre">hodge</span> <span class="pre">cant</span> <span class="pre">mamage</span> <span class="pre">this</span> <span class="pre">section',</span> <span class="pre">'incorrectly</span> <span class="pre">credited</span> <span class="pre">C550456</span> <span class="pre">see</span> <span class="pre">47']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.find_stopWords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.find_stopWords" title="Link to this definition"></a></dt>
+<dd><p>Checks if a word is a stop word.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>word</strong><span class="classifier">str</span></dt><dd><p>The string to check.</p>
+</dd>
+<dt><strong>sw</strong><span class="classifier">list, optional</span></dt><dd><p>List of stop words. Default is the variable <cite>sw</cite>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>str or None</dt><dd><p>The input word if it is a stop word, otherwise None.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.get_summary">
+<span class="sig-name descname"><span class="pre">get_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.get_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.get_summary" title="Link to this definition"></a></dt>
+<dd><p>Generate a summary of the dataset including various statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">polars.DataFrame</span></dt><dd><p>Input  polars.DataFrame containing the dataset.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Prints the summary of the dataset including the following statistics:
+- Number of unique invoice codes
+- Number of unique stock codes
+- Average number of stock codes per invoice
+- Average quantity per stock code
+- Number of unique customer IDs
+- Country with the most stock codes</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.most_frequent">
+<span class="sig-name descname"><span class="pre">most_frequent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">descriptions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.most_frequent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.most_frequent" title="Link to this definition"></a></dt>
+<dd><p>Finds the most frequent element in a list of descriptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>descriptions</strong><span class="classifier">List[str]</span></dt><dd><p>List of descriptions.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>str or None</dt><dd><p>The most frequent description in the list. If the list is empty, returns None.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.plot_map">
+<span class="sig-name descname"><span class="pre">plot_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.plot_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.plot_map" title="Link to this definition"></a></dt>
+<dd><p>Plot a map with countries colored based on the number of invoices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">polars.DataFrame</span></dt><dd><p>Input polars.DataFrame containing the dataset with country-wise invoice information.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Displays a map with countries colored based on the number of invoices</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.quantity_boxplot">
+<span class="sig-name descname"><span class="pre">quantity_boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.quantity_boxplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.quantity_boxplot" title="Link to this definition"></a></dt>
+<dd><p>Generates a box plot showing the distribution of quantity of items bought for each product.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">DataFrame</span></dt><dd><p>Input DataFrame containing the quantity of items bought for each product.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Displays the box plot with the quantity of items.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.read_data">
+<span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.read_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.read_data" title="Link to this definition"></a></dt>
+<dd><p>Reads data from a CSV file into a Polars DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data_file</strong><span class="classifier">str</span></dt><dd><p>The name of the CSV file containing the data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">polars.DataFrame</span></dt><dd><p>A Polars DataFrame containing the data read from the CSV file.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.remove_spaces">
+<span class="sig-name descname"><span class="pre">remove_spaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.remove_spaces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.remove_spaces" title="Link to this definition"></a></dt>
+<dd><p>Removes extra spaces from a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>arr</strong><span class="classifier">str</span></dt><dd><p>Input string containing extra spaces.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd><p>String with extra spaces removed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.replace_stopWords">
+<span class="sig-name descname"><span class="pre">replace_stopWords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['?',</span> <span class="pre">'??',</span> <span class="pre">'???',</span> <span class="pre">'check',</span> <span class="pre">'found',</span> <span class="pre">'amazon',</span> <span class="pre">'damaged',</span> <span class="pre">'damages',</span> <span class="pre">'amazon',</span> <span class="pre">'crushed',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'water</span> <span class="pre">damage',</span> <span class="pre">'Found',</span> <span class="pre">'missing',</span> <span class="pre">'???lost',</span> <span class="pre">'AMAZON',</span> <span class="pre">'Damaged',</span> <span class="pre">'counted',</span> <span class="pre">'wet</span> <span class="pre">pallet',</span> <span class="pre">'????missing',</span> <span class="pre">'Water</span> <span class="pre">damaged',</span> <span class="pre">'adjustment',</span> <span class="pre">'dotcom',</span> <span class="pre">'mouldy,</span> <span class="pre">thrown</span> <span class="pre">away.',</span> <span class="pre">'Show</span> <span class="pre">Samples',</span> <span class="pre">'lost',</span> <span class="pre">'incorrectly</span> <span class="pre">made-thrown</span> <span class="pre">away.',</span> <span class="pre">'re-adjustment',</span> <span class="pre">'damages/dotcom?',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set/6</span> <span class="pre">by</span> <span class="pre">dotcom',</span> <span class="pre">'cracked',</span> <span class="pre">'crushed</span> <span class="pre">ctn',</span> <span class="pre">'taig</span> <span class="pre">adjust</span> <span class="pre">no</span> <span class="pre">stock',</span> <span class="pre">'POSSIBLE</span> <span class="pre">DAMAGES</span> <span class="pre">OR</span> <span class="pre">LOST?',</span> <span class="pre">&quot;Dotcom</span> <span class="pre">sold</span> <span class="pre">in</span> <span class="pre">6's&quot;,</span> <span class="pre">'sold</span> <span class="pre">in</span> <span class="pre">set?',</span> <span class="pre">'reverse</span> <span class="pre">21/5/10</span> <span class="pre">adjustment',</span> <span class="pre">&quot;can't</span> <span class="pre">find&quot;,</span> <span class="pre">'?missing',</span> <span class="pre">'??</span> <span class="pre">missing',</span> <span class="pre">'amazon</span> <span class="pre">adjust',</span> <span class="pre">'Dotcom</span> <span class="pre">set',</span> <span class="pre">'wrongly</span> <span class="pre">sold</span> <span class="pre">as</span> <span class="pre">sets',</span> <span class="pre">'?sold</span> <span class="pre">as</span> <span class="pre">sets?',</span> <span class="pre">'mouldy,</span> <span class="pre">unsaleable.',</span> <span class="pre">'Amazon',</span> <span class="pre">'faulty',</span> <span class="pre">'rcvd</span> <span class="pre">be</span> <span class="pre">air</span> <span class="pre">temp</span> <span class="pre">fix</span> <span class="pre">for</span> <span class="pre">dotcom</span> <span class="pre">sit',</span> <span class="pre">'re</span> <span class="pre">dotcom</span> <span class="pre">quick</span> <span class="pre">fix.',</span> <span class="pre">'Dotcom</span> <span class="pre">sales',</span> <span class="pre">'missing?',</span> <span class="pre">'reverse</span> <span class="pre">21/5/10</span> <span class="pre">adjustment',</span> <span class="pre">'incorrectly</span> <span class="pre">put</span> <span class="pre">back</span> <span class="pre">into</span> <span class="pre">stock',</span> <span class="pre">'damages?',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'wet</span> <span class="pre">boxes',</span> <span class="pre">'wet</span> <span class="pre">rusty',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'????damages????',</span> <span class="pre">'historic</span> <span class="pre">computer</span> <span class="pre">difference?....se',</span> <span class="pre">'smashed',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'dotcomstock',</span> <span class="pre">'mixed</span> <span class="pre">up',</span> <span class="pre">'michel</span> <span class="pre">oops',</span> <span class="pre">'test',</span> <span class="pre">'lost</span> <span class="pre">in</span> <span class="pre">space',</span> <span class="pre">'amazon</span> <span class="pre">sales',</span> <span class="pre">'FOUND',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'wet</span> <span class="pre">pallet',</span> <span class="pre">'???missing',</span> <span class="pre">'Water</span> <span class="pre">damaged',</span> <span class="pre">'FBA',</span> <span class="pre">'dotcom</span> <span class="pre">sales',</span> <span class="pre">'Dotcom',</span> <span class="pre">'Dotcom</span> <span class="pre">sales',</span> <span class="pre">'Damages/samples',</span> <span class="pre">'on</span> <span class="pre">cargo</span> <span class="pre">order',</span> <span class="pre">'adjustment',</span> <span class="pre">'dotcom',</span> <span class="pre">'damages?',</span> <span class="pre">'mystery!</span> <span class="pre">Only</span> <span class="pre">ever</span> <span class="pre">imported</span> <span class="pre">1800',</span> <span class="pre">'MIA',</span> <span class="pre">'wet',</span> <span class="pre">'samples',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom</span> <span class="pre">and</span> <span class="pre">amazon',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">1',</span> <span class="pre">'MERCHANT</span> <span class="pre">CHANDLER</span> <span class="pre">CREDIT</span> <span class="pre">ERROR,</span> <span class="pre">STO',</span> <span class="pre">'OOPS</span> <span class="pre">!</span> <span class="pre">adjustment',</span> <span class="pre">'Missing',</span> <span class="pre">'?lost',</span> <span class="pre">'found</span> <span class="pre">some</span> <span class="pre">more</span> <span class="pre">on</span> <span class="pre">shelf',</span> <span class="pre">'reverse</span> <span class="pre">previous</span> <span class="pre">adjustment',</span> <span class="pre">'Amazon</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'dotcom</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'mix</span> <span class="pre">up</span> <span class="pre">with</span> <span class="pre">c',</span> <span class="pre">'wrongly</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'?</span> <span class="pre">sold</span> <span class="pre">as</span> <span class="pre">sets?',</span> <span class="pre">'damages/display',</span> <span class="pre">'Not</span> <span class="pre">rcvd</span> <span class="pre">in</span> <span class="pre">10/11/2010</span> <span class="pre">delivery',</span> <span class="pre">'Amazon</span> <span class="pre">Adjustment',</span> <span class="pre">'CHECK',</span> <span class="pre">'damaged</span> <span class="pre">stock',</span> <span class="pre">'showroom',</span> <span class="pre">'found</span> <span class="pre">box',</span> <span class="pre">'stock</span> <span class="pre">check',</span> <span class="pre">'barcode</span> <span class="pre">problem',</span> <span class="pre">'Found</span> <span class="pre">in</span> <span class="pre">w/hse',</span> <span class="pre">'damages/credits</span> <span class="pre">from</span> <span class="pre">ASOS.',</span> <span class="pre">'damages?',</span> <span class="pre">'damages/showroom</span> <span class="pre">etc',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'DAMAGED',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">1',</span> <span class="pre">'?missing',</span> <span class="pre">'taig</span> <span class="pre">adjust',</span> <span class="pre">'Wet</span> <span class="pre">pallet-thrown</span> <span class="pre">away',</span> <span class="pre">'Had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside.',</span> <span class="pre">'did</span>&#160; <span class="pre">a</span> <span class="pre">credit</span>&#160; <span class="pre">and</span> <span class="pre">did</span> <span class="pre">not</span> <span class="pre">tick</span> <span class="pre">ret',</span> <span class="pre">'damages</span> <span class="pre">wax',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'damages?',</span> <span class="pre">'Adjustment',</span> <span class="pre">'?display?',</span> <span class="pre">'WET/MOULDY',</span> <span class="pre">'adjust',</span> <span class="pre">'damages</span> <span class="pre">wax',</span> <span class="pre">'returned',</span> <span class="pre">'mixed</span> <span class="pre">up',</span> <span class="pre">'crushed',</span> <span class="pre">'label</span> <span class="pre">mix</span> <span class="pre">up',</span> <span class="pre">'lost??',</span> <span class="pre">'Sold</span> <span class="pre">as</span> <span class="pre">1</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">by</span> <span class="pre">dotcom',</span> <span class="pre">'smashed',</span> <span class="pre">'Dagamed',</span> <span class="pre">'water</span> <span class="pre">damaged',</span> <span class="pre">'wrong</span> <span class="pre">barcode',</span> <span class="pre">'check?',</span> <span class="pre">'wet/rusty',</span> <span class="pre">'Thrown</span> <span class="pre">away.',</span> <span class="pre">'ebay',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'crushed</span> <span class="pre">boxes',</span> <span class="pre">'stock</span> <span class="pre">creditted</span> <span class="pre">wrongly',</span> <span class="pre">'stock</span> <span class="pre">check',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'test',</span> <span class="pre">'samples/damages',</span> <span class="pre">'to</span> <span class="pre">push</span> <span class="pre">order</span> <span class="pre">througha</span> <span class="pre">s</span> <span class="pre">stock</span> <span class="pre">was',</span> <span class="pre">'Unsaleable,</span> <span class="pre">destroyed.',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'Given</span> <span class="pre">away',</span> <span class="pre">'wet?',</span> <span class="pre">'Printing</span> <span class="pre">smudges/thrown</span> <span class="pre">away',</span> <span class="pre">'printing</span> <span class="pre">smudges/thrown</span> <span class="pre">away',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'rusty</span> <span class="pre">throw</span> <span class="pre">away',</span> <span class="pre">'Crushed',</span> <span class="pre">'mailout',</span> <span class="pre">'temp</span> <span class="pre">adjustment',</span> <span class="pre">'allocate</span> <span class="pre">stock</span> <span class="pre">for</span> <span class="pre">dotcom</span> <span class="pre">orders</span> <span class="pre">ta',</span> <span class="pre">'add</span> <span class="pre">stock</span> <span class="pre">to</span> <span class="pre">allocate</span> <span class="pre">online</span> <span class="pre">orders',</span> <span class="pre">'for</span> <span class="pre">online</span> <span class="pre">retail</span> <span class="pre">orders',</span> <span class="pre">'website</span> <span class="pre">fixed',</span> <span class="pre">'Breakages',</span> <span class="pre">'smashed',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'incorrect</span> <span class="pre">stock</span> <span class="pre">entry.',</span> <span class="pre">'Lighthouse</span> <span class="pre">Trading</span> <span class="pre">zero</span> <span class="pre">invc</span> <span class="pre">incorr',</span> <span class="pre">'Incorrect</span> <span class="pre">stock</span> <span class="pre">entry.',</span> <span class="pre">'mouldy',</span> <span class="pre">'alan</span> <span class="pre">hodge</span> <span class="pre">cant</span> <span class="pre">mamage</span> <span class="pre">this</span> <span class="pre">section',</span> <span class="pre">'incorrectly</span> <span class="pre">credited</span> <span class="pre">C550456</span> <span class="pre">see</span> <span class="pre">47']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.replace_stopWords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.replace_stopWords" title="Link to this definition"></a></dt>
+<dd><p>Replaces stop words with None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>word</strong><span class="classifier">str</span></dt><dd><p>The string to check.</p>
+</dd>
+<dt><strong>sw</strong><span class="classifier">list, optional</span></dt><dd><p>List of stop words. Default is the variable <cite>sw</cite>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>str or None</dt><dd><p>None if the input word is a stop word, otherwise the input word.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.scatter_price_quant">
+<span class="sig-name descname"><span class="pre">scatter_price_quant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.scatter_price_quant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.scatter_price_quant" title="Link to this definition"></a></dt>
+<dd><p>Create a scatter plot to visualize the relationship between unit price and quantity purchased.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">polars.DataFrame</span></dt><dd><p>Input DataFrame containing the data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Displays the scatter plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="retail.class_retail.retail.set_cwd">
+<span class="sig-name descname"><span class="pre">set_cwd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/retail/class_retail.html#retail.set_cwd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#retail.class_retail.retail.set_cwd" title="Link to this definition"></a></dt>
+<dd><p>Set current working directory to desired local path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>target_path</strong><span class="classifier">str</span></dt><dd><p>local path that should be used as current working directory.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>current_working_directory</strong><span class="classifier">str</span></dt><dd><p>Prints current working directory.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="retail.class_retail.retail.sw">
+<span class="sig-name descname"><span class="pre">sw</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['?',</span> <span class="pre">'??',</span> <span class="pre">'???',</span> <span class="pre">'check',</span> <span class="pre">'found',</span> <span class="pre">'amazon',</span> <span class="pre">'damaged',</span> <span class="pre">'damages',</span> <span class="pre">'amazon',</span> <span class="pre">'crushed',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'water</span> <span class="pre">damage',</span> <span class="pre">'Found',</span> <span class="pre">'missing',</span> <span class="pre">'???lost',</span> <span class="pre">'AMAZON',</span> <span class="pre">'Damaged',</span> <span class="pre">'counted',</span> <span class="pre">'wet</span> <span class="pre">pallet',</span> <span class="pre">'????missing',</span> <span class="pre">'Water</span> <span class="pre">damaged',</span> <span class="pre">'adjustment',</span> <span class="pre">'dotcom',</span> <span class="pre">'mouldy,</span> <span class="pre">thrown</span> <span class="pre">away.',</span> <span class="pre">'Show</span> <span class="pre">Samples',</span> <span class="pre">'lost',</span> <span class="pre">'incorrectly</span> <span class="pre">made-thrown</span> <span class="pre">away.',</span> <span class="pre">'re-adjustment',</span> <span class="pre">'damages/dotcom?',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set/6</span> <span class="pre">by</span> <span class="pre">dotcom',</span> <span class="pre">'cracked',</span> <span class="pre">'crushed</span> <span class="pre">ctn',</span> <span class="pre">'taig</span> <span class="pre">adjust</span> <span class="pre">no</span> <span class="pre">stock',</span> <span class="pre">'POSSIBLE</span> <span class="pre">DAMAGES</span> <span class="pre">OR</span> <span class="pre">LOST?',</span> <span class="pre">&quot;Dotcom</span> <span class="pre">sold</span> <span class="pre">in</span> <span class="pre">6's&quot;,</span> <span class="pre">'sold</span> <span class="pre">in</span> <span class="pre">set?',</span> <span class="pre">'reverse</span> <span class="pre">21/5/10</span> <span class="pre">adjustment',</span> <span class="pre">&quot;can't</span> <span class="pre">find&quot;,</span> <span class="pre">'?missing',</span> <span class="pre">'??</span> <span class="pre">missing',</span> <span class="pre">'amazon</span> <span class="pre">adjust',</span> <span class="pre">'Dotcom</span> <span class="pre">set',</span> <span class="pre">'wrongly</span> <span class="pre">sold</span> <span class="pre">as</span> <span class="pre">sets',</span> <span class="pre">'?sold</span> <span class="pre">as</span> <span class="pre">sets?',</span> <span class="pre">'mouldy,</span> <span class="pre">unsaleable.',</span> <span class="pre">'Amazon',</span> <span class="pre">'faulty',</span> <span class="pre">'rcvd</span> <span class="pre">be</span> <span class="pre">air</span> <span class="pre">temp</span> <span class="pre">fix</span> <span class="pre">for</span> <span class="pre">dotcom</span> <span class="pre">sit',</span> <span class="pre">'re</span> <span class="pre">dotcom</span> <span class="pre">quick</span> <span class="pre">fix.',</span> <span class="pre">'Dotcom</span> <span class="pre">sales',</span> <span class="pre">'missing?',</span> <span class="pre">'reverse</span> <span class="pre">21/5/10</span> <span class="pre">adjustment',</span> <span class="pre">'incorrectly</span> <span class="pre">put</span> <span class="pre">back</span> <span class="pre">into</span> <span class="pre">stock',</span> <span class="pre">'damages?',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'wet</span> <span class="pre">boxes',</span> <span class="pre">'wet</span> <span class="pre">rusty',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'????damages????',</span> <span class="pre">'historic</span> <span class="pre">computer</span> <span class="pre">difference?....se',</span> <span class="pre">'smashed',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'dotcomstock',</span> <span class="pre">'mixed</span> <span class="pre">up',</span> <span class="pre">'michel</span> <span class="pre">oops',</span> <span class="pre">'test',</span> <span class="pre">'lost</span> <span class="pre">in</span> <span class="pre">space',</span> <span class="pre">'amazon</span> <span class="pre">sales',</span> <span class="pre">'FOUND',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'wet</span> <span class="pre">pallet',</span> <span class="pre">'???missing',</span> <span class="pre">'Water</span> <span class="pre">damaged',</span> <span class="pre">'FBA',</span> <span class="pre">'dotcom</span> <span class="pre">sales',</span> <span class="pre">'Dotcom',</span> <span class="pre">'Dotcom</span> <span class="pre">sales',</span> <span class="pre">'Damages/samples',</span> <span class="pre">'on</span> <span class="pre">cargo</span> <span class="pre">order',</span> <span class="pre">'adjustment',</span> <span class="pre">'dotcom',</span> <span class="pre">'damages?',</span> <span class="pre">'mystery!</span> <span class="pre">Only</span> <span class="pre">ever</span> <span class="pre">imported</span> <span class="pre">1800',</span> <span class="pre">'MIA',</span> <span class="pre">'wet',</span> <span class="pre">'samples',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">on</span> <span class="pre">dotcom</span> <span class="pre">and</span> <span class="pre">amazon',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">1',</span> <span class="pre">'MERCHANT</span> <span class="pre">CHANDLER</span> <span class="pre">CREDIT</span> <span class="pre">ERROR,</span> <span class="pre">STO',</span> <span class="pre">'OOPS</span> <span class="pre">!</span> <span class="pre">adjustment',</span> <span class="pre">'Missing',</span> <span class="pre">'?lost',</span> <span class="pre">'found</span> <span class="pre">some</span> <span class="pre">more</span> <span class="pre">on</span> <span class="pre">shelf',</span> <span class="pre">'reverse</span> <span class="pre">previous</span> <span class="pre">adjustment',</span> <span class="pre">'Amazon</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'dotcom</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'mix</span> <span class="pre">up</span> <span class="pre">with</span> <span class="pre">c',</span> <span class="pre">'wrongly</span> <span class="pre">sold</span> <span class="pre">sets',</span> <span class="pre">'?</span> <span class="pre">sold</span> <span class="pre">as</span> <span class="pre">sets?',</span> <span class="pre">'damages/display',</span> <span class="pre">'Not</span> <span class="pre">rcvd</span> <span class="pre">in</span> <span class="pre">10/11/2010</span> <span class="pre">delivery',</span> <span class="pre">'Amazon</span> <span class="pre">Adjustment',</span> <span class="pre">'CHECK',</span> <span class="pre">'damaged</span> <span class="pre">stock',</span> <span class="pre">'showroom',</span> <span class="pre">'found</span> <span class="pre">box',</span> <span class="pre">'stock</span> <span class="pre">check',</span> <span class="pre">'barcode</span> <span class="pre">problem',</span> <span class="pre">'Found</span> <span class="pre">in</span> <span class="pre">w/hse',</span> <span class="pre">'damages/credits</span> <span class="pre">from</span> <span class="pre">ASOS.',</span> <span class="pre">'damages?',</span> <span class="pre">'damages/showroom</span> <span class="pre">etc',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'DAMAGED',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">1',</span> <span class="pre">'?missing',</span> <span class="pre">'taig</span> <span class="pre">adjust',</span> <span class="pre">'Wet</span> <span class="pre">pallet-thrown</span> <span class="pre">away',</span> <span class="pre">'Had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside.',</span> <span class="pre">'did</span>&#160; <span class="pre">a</span> <span class="pre">credit</span>&#160; <span class="pre">and</span> <span class="pre">did</span> <span class="pre">not</span> <span class="pre">tick</span> <span class="pre">ret',</span> <span class="pre">'damages</span> <span class="pre">wax',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'damages?',</span> <span class="pre">'Adjustment',</span> <span class="pre">'?display?',</span> <span class="pre">'WET/MOULDY',</span> <span class="pre">'adjust',</span> <span class="pre">'damages</span> <span class="pre">wax',</span> <span class="pre">'returned',</span> <span class="pre">'mixed</span> <span class="pre">up',</span> <span class="pre">'crushed',</span> <span class="pre">'label</span> <span class="pre">mix</span> <span class="pre">up',</span> <span class="pre">'lost??',</span> <span class="pre">'Sold</span> <span class="pre">as</span> <span class="pre">1</span> <span class="pre">on</span> <span class="pre">dotcom',</span> <span class="pre">'sold</span> <span class="pre">as</span> <span class="pre">set</span> <span class="pre">by</span> <span class="pre">dotcom',</span> <span class="pre">'smashed',</span> <span class="pre">'Dagamed',</span> <span class="pre">'water</span> <span class="pre">damaged',</span> <span class="pre">'wrong</span> <span class="pre">barcode',</span> <span class="pre">'check?',</span> <span class="pre">'wet/rusty',</span> <span class="pre">'Thrown</span> <span class="pre">away.',</span> <span class="pre">'ebay',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'crushed</span> <span class="pre">boxes',</span> <span class="pre">'stock</span> <span class="pre">creditted</span> <span class="pre">wrongly',</span> <span class="pre">'stock</span> <span class="pre">check',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'test',</span> <span class="pre">'samples/damages',</span> <span class="pre">'to</span> <span class="pre">push</span> <span class="pre">order</span> <span class="pre">througha</span> <span class="pre">s</span> <span class="pre">stock</span> <span class="pre">was',</span> <span class="pre">'Unsaleable,</span> <span class="pre">destroyed.',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'Given</span> <span class="pre">away',</span> <span class="pre">'wet?',</span> <span class="pre">'Printing</span> <span class="pre">smudges/thrown</span> <span class="pre">away',</span> <span class="pre">'printing</span> <span class="pre">smudges/thrown</span> <span class="pre">away',</span> <span class="pre">'thrown</span> <span class="pre">away',</span> <span class="pre">'had</span> <span class="pre">been</span> <span class="pre">put</span> <span class="pre">aside',</span> <span class="pre">'rusty</span> <span class="pre">throw</span> <span class="pre">away',</span> <span class="pre">'Crushed',</span> <span class="pre">'mailout',</span> <span class="pre">'temp</span> <span class="pre">adjustment',</span> <span class="pre">'allocate</span> <span class="pre">stock</span> <span class="pre">for</span> <span class="pre">dotcom</span> <span class="pre">orders</span> <span class="pre">ta',</span> <span class="pre">'add</span> <span class="pre">stock</span> <span class="pre">to</span> <span class="pre">allocate</span> <span class="pre">online</span> <span class="pre">orders',</span> <span class="pre">'for</span> <span class="pre">online</span> <span class="pre">retail</span> <span class="pre">orders',</span> <span class="pre">'website</span> <span class="pre">fixed',</span> <span class="pre">'Breakages',</span> <span class="pre">'smashed',</span> <span class="pre">'wet</span> <span class="pre">damaged',</span> <span class="pre">'incorrect</span> <span class="pre">stock</span> <span class="pre">entry.',</span> <span class="pre">'Lighthouse</span> <span class="pre">Trading</span> <span class="pre">zero</span> <span class="pre">invc</span> <span class="pre">incorr',</span> <span class="pre">'Incorrect</span> <span class="pre">stock</span> <span class="pre">entry.',</span> <span class="pre">'mouldy',</span> <span class="pre">'alan</span> <span class="pre">hodge</span> <span class="pre">cant</span> <span class="pre">mamage</span> <span class="pre">this</span> <span class="pre">section',</span> <span class="pre">'incorrectly</span> <span class="pre">credited</span> <span class="pre">C550456</span> <span class="pre">see</span> <span class="pre">47']</span></em><a class="headerlink" href="#retail.class_retail.retail.sw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-retail">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-retail" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to retail&#39;s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example/showcase.html" class="btn btn-neutral float-right" title="Example project" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emona Bakalova, Mariia Hrechyn, Alican Ohkay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
